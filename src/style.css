@@ -15,16 +15,20 @@
 }
 
 /* ── Base ────────────────────────────────────────────────────────────────── */
-html { background: var(--bg); overflow: hidden; }
+html { background: var(--bg); overflow-x: hidden; }
 
 body {
   font-family: var(--sans);
   color: var(--white);
   background: var(--bg);
-  overflow: hidden;
-  cursor: none;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   user-select: none;
+}
+
+/* Cursor only on pointer devices */
+@media (hover: hover) and (pointer: fine) {
+  body { cursor: none; }
 }
 
 a { text-decoration: none; color: inherit; }
@@ -107,23 +111,29 @@ canvas#canvas {
   color: rgba(255,255,255,0.25);
 }
 
-/* ── Custom cursor ───────────────────────────────────────────────────────── */
+/* ── Custom cursor (pointer devices only) ────────────────────────────────── */
 #cursor-dot {
-  position: fixed;
-  width: 5px;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: width 0.15s ease, height 0.15s ease, background 0.15s ease;
+  display: none;
 }
 
-body.cursor-hover #cursor-dot {
-  width: 8px;
-  height: 8px;
-  background: var(--gold);
+@media (hover: hover) and (pointer: fine) {
+  #cursor-dot {
+    display: block;
+    position: fixed;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.15s ease, height 0.15s ease, background 0.15s ease;
+  }
+  body.cursor-hover #cursor-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--gold);
+  }
 }
 
 /* ── Nav ─────────────────────────────────────────────────────────────────── */
@@ -386,6 +396,39 @@ body::before {
   );
   pointer-events: none;
   z-index: 5;
+}
+
+/* ── Mobile ──────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  nav { top: 1.2rem; right: 1rem; }
+
+  .s-hero { padding: 0 0 8vh 6vw; }
+
+  .section h1 { font-size: clamp(3.5rem, 18vw, 6rem); }
+
+  .s-left  { padding: 0 6vw; align-items: flex-start; }
+  .s-right { padding: 0 6vw; justify-content: flex-start; }
+
+  .panel { max-width: 100%; }
+
+  .panel-stat { font-size: clamp(3rem, 18vw, 6rem); }
+
+  .panel-title { font-size: clamp(1.6rem, 6vw, 2.4rem); }
+
+  .s-final { padding: 0 6vw; }
+
+  .btn-row { flex-direction: column; align-items: stretch; }
+  .btn-pill { text-align: center; }
+
+  /* Vignette lighter on mobile so building is visible */
+  body::before {
+    background: radial-gradient(
+      ellipse at 50% 55%,
+      transparent 25%,
+      rgba(7, 12, 20, 0.4) 65%,
+      rgba(7, 12, 20, 0.85) 100%
+    );
+  }
 }
 
 /* ── Animations ──────────────────────────────────────────────────────────── */

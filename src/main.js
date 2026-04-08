@@ -5,11 +5,16 @@ import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// ── Device detection ──────────────────────────────────────────────────────────
+const isMobile = window.innerWidth < 768 || !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
 // ── Lenis ─────────────────────────────────────────────────────────────────────
 const lenis = new Lenis({
-  duration: 1.8,
+  duration: isMobile ? 1.2 : 1.8,
   easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   smoothWheel: true,
+  touchMultiplier: 1.5,
+  infinite: false,
 });
 lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.add(time => lenis.raf(time * 1000));
@@ -184,11 +189,11 @@ function buildHalos() {
 
 // ── Nebula cloud (volumetric depth layers) ────────────────────────────────────
 function buildNebula() {
-  // Three overlapping systems — large blurry, medium, tight — stack = volumetric glow
+  const m = isMobile ? 0.4 : 1;
   const layers = [
-    {count:120, size:2.2, opacity:.025, color:0x0d3050, spread:14},
-    {count:100, size:1.1, opacity:.04,  color:0x1a4060, spread:11},
-    {count: 80, size:0.55,opacity:.06,  color:0x4de8cc,  spread:8 },
+    {count:Math.floor(120*m), size:2.2, opacity:.025, color:0x0d3050, spread:14},
+    {count:Math.floor(100*m), size:1.1, opacity:.04,  color:0x1a4060, spread:11},
+    {count:Math.floor( 80*m), size:0.55,opacity:.06,  color:0x4de8cc, spread:8 },
   ];
   layers.forEach(cfg => {
     const pos = new Float32Array(cfg.count*3);
@@ -206,7 +211,7 @@ function buildNebula() {
 }
 
 // ── Atmospheric particles + velocity trail system ─────────────────────────────
-const ATMO_COUNT = 1000;
+const ATMO_COUNT = isMobile ? 300 : 1000;
 
 function buildAtmoParticles() {
   const pos = new Float32Array(ATMO_COUNT * 3);
@@ -251,7 +256,7 @@ function buildAtmoParticles() {
 
 // ── Stars ─────────────────────────────────────────────────────────────────────
 function buildStars() {
-  const count=6000, p=new Float32Array(count*3);
+  const count= isMobile ? 2000 : 6000, p=new Float32Array(count*3);
   for(let i=0;i<count;i++){p[i*3]=(Math.random()-.5)*700;p[i*3+1]=Math.random()*350+5;p[i*3+2]=(Math.random()-.5)*700;}
   const geo=new THREE.BufferGeometry(); geo.setAttribute('position',new THREE.BufferAttribute(p,3));
   const pts=new THREE.Points(geo,new THREE.PointsMaterial({color:0xaaccff,size:.14,transparent:true,opacity:.5,sizeAttenuation:true}));
@@ -333,26 +338,36 @@ const loaderTick=setInterval(()=>{
   }
 },11);
 
-// ── Cursor ────────────────────────────────────────────────────────────────────
+// ── Cursor (desktop only) ─────────────────────────────────────────────────────
 const cursorDot=document.getElementById('cursor-dot');
 let mouseX=window.innerWidth/2, mouseY=window.innerHeight/2;
 
-window.addEventListener('mousemove', e=>{
-  mouseX=e.clientX; mouseY=e.clientY;
-  cursorDot.style.left=mouseX+'px';
-  cursorDot.style.top=mouseY+'px';
-});
-document.querySelectorAll('a,button,.cta-link,.btn-pill').forEach(el=>{
-  el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
-  el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
-});
+if (!isMobile) {
+  window.addEventListener('mousemove', e=>{
+    mouseX=e.clientX; mouseY=e.clientY;
+    cursorDot.style.left=mouseX+'px';
+    cursorDot.style.top=mouseY+'px';
+  });
+  document.querySelectorAll('a,button,.cta-link,.btn-pill').forEach(el=>{
+    el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
+  });
+}
 
-// ── Mouse ─────────────────────────────────────────────────────────────────────
+// ── Mouse / touch parallax ────────────────────────────────────────────────────
 let normX=0, normY=0, smoothNormX=0, smoothNormY=0;
+
 window.addEventListener('mousemove', e=>{
   normX=(e.clientX/window.innerWidth -.5)*2;
   normY=(e.clientY/window.innerHeight-.5)*2;
 });
+
+// Touch parallax
+window.addEventListener('touchmove', e=>{
+  const t=e.touches[0];
+  normX=(t.clientX/window.innerWidth -.5)*2;
+  normY=(t.clientY/window.innerHeight-.5)*2;
+}, { passive: true });
 
 // ── Camera update ─────────────────────────────────────────────────────────────
 const _look=new THREE.Vector3(), _base=new THREE.Vector3(), _baseLook=new THREE.Vector3();
