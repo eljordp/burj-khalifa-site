@@ -110,37 +110,20 @@ canvas#canvas {
 /* ── Custom cursor ───────────────────────────────────────────────────────── */
 #cursor-dot {
   position: fixed;
-  width: 4px;
-  height: 4px;
-  background: #fff;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
-  mix-blend-mode: difference;
-}
-
-#cursor-ring {
-  position: fixed;
-  width: 36px;
-  height: 36px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
+  transition: width 0.15s ease, height 0.15s ease, background 0.15s ease;
 }
 
 body.cursor-hover #cursor-dot {
-  width: 6px;
-  height: 6px;
-}
-
-body.cursor-hover #cursor-ring {
-  width: 56px;
-  height: 56px;
-  border-color: rgba(201, 168, 76, 0.5);
-  transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease;
+  width: 8px;
+  height: 8px;
+  background: var(--gold);
 }
 
 /* ── Nav ─────────────────────────────────────────────────────────────────── */
