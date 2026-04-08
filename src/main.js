@@ -138,13 +138,12 @@ function buildBurj() {
   group.add(orb);
 
   // Ground
-  group.add(Object.assign(
-    new THREE.Mesh(
-      new THREE.CylinderGeometry(9, 9, 0.2, 64),
-      new THREE.MeshStandardMaterial({ color: 0x0d1828, roughness: 0.9 })
-    ),
-    { position: new THREE.Vector3(0, -0.1, 0) }
-  ));
+  const ground = new THREE.Mesh(
+    new THREE.CylinderGeometry(9, 9, 0.2, 64),
+    new THREE.MeshStandardMaterial({ color: 0x0d1828, roughness: 0.9 })
+  );
+  ground.position.y = -0.1;
+  group.add(ground);
 
   // Plaza
   const plazaMesh = new THREE.Mesh(
