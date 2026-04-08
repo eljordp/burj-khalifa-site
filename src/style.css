@@ -110,39 +110,37 @@ canvas#canvas {
 /* ── Custom cursor ───────────────────────────────────────────────────────── */
 #cursor-dot {
   position: fixed;
-  width: 5px;
-  height: 5px;
-  background: var(--teal);
+  width: 4px;
+  height: 4px;
+  background: #fff;
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
-  transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease;
+  mix-blend-mode: difference;
 }
 
 #cursor-ring {
   position: fixed;
-  width: 30px;
-  height: 30px;
-  border: 1px solid rgba(77, 232, 204, 0.45);
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
   transform: translate(-50%, -50%);
-  /* ring follows with natural lerp in JS - no CSS transition here */
 }
 
 body.cursor-hover #cursor-dot {
-  width: 8px;
-  height: 8px;
-  background: var(--gold);
+  width: 6px;
+  height: 6px;
 }
 
 body.cursor-hover #cursor-ring {
-  border-color: rgba(201, 168, 76, 0.3);
-  width: 54px;
-  height: 54px;
-  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+  width: 56px;
+  height: 56px;
+  border-color: rgba(201, 168, 76, 0.5);
+  transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease;
 }
 
 /* ── Nav ─────────────────────────────────────────────────────────────────── */

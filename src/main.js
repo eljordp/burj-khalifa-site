@@ -446,7 +446,7 @@ const loaderTick = setInterval(() => {
       });
     }, 350);
   }
-}, 22);
+}, 11);
 
 // ── Cursor ────────────────────────────────────────────────────────────────────
 const cursorDot  = document.getElementById('cursor-dot');
@@ -522,8 +522,8 @@ function animate() {
   smoothNormY += (normY - smoothNormY) * 0.06;
 
   // Cursor ring lerp
-  ringX += (mouseX - ringX) * 0.1;
-  ringY += (mouseY - ringY) * 0.1;
+  ringX += (mouseX - ringX) * 0.08;
+  ringY += (mouseY - ringY) * 0.08;
   cursorRing.style.left = ringX + 'px';
   cursorRing.style.top  = ringY + 'px';
 
