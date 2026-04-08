@@ -39,7 +39,7 @@ canvas#canvas {
 /* ── Scroll container (Lenis scrolls this) ───────────────────────────────── */
 #scroll-container {
   position: relative;
-  z-index: 10;
+  z-index: 20;
 }
 
 /* ── Loader ──────────────────────────────────────────────────────────────── */
@@ -392,20 +392,19 @@ nav {
 
 .mono-label.teal { color: var(--teal); }
 
-/* ── Scan-line overlay ───────────────────────────────────────────────────── */
-body::after {
+/* ── Vignette (dark edges, focus on center) ──────────────────────────────── */
+body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0,0,0,0.03) 2px,
-    rgba(0,0,0,0.03) 4px
+  background: radial-gradient(
+    ellipse at 50% 55%,
+    transparent 35%,
+    rgba(7, 12, 20, 0.55) 68%,
+    rgba(7, 12, 20, 0.92) 100%
   );
   pointer-events: none;
-  z-index: 200;
+  z-index: 5;
 }
 
 /* ── Animations ──────────────────────────────────────────────────────────── */
