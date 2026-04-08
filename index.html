@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Burj Khalifa — Touch the Sky</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+
+  <!-- Loader -->
+  <div id="loader">
+    <div class="loader-inner">
+      <svg class="loader-svg" viewBox="0 0 100 100">
+        <circle class="loader-track" cx="50" cy="50" r="36"/>
+        <circle class="loader-arc"   cx="50" cy="50" r="36" id="loader-arc"/>
+      </svg>
+      <div class="loader-center">
+        <span id="loader-num">00</span>
+      </div>
+    </div>
+    <div class="loader-brand">BURJ KHALIFA · DUBAI</div>
+  </div>
+
+  <!-- Custom cursor -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- Nav -->
+  <nav>
+    <div class="nav-pill">
+      <a href="#" class="nav-link">VISIT</a>
+      <span class="nav-sep"></span>
+      <a href="#" class="nav-link">TICKETS</a>
+    </div>
+  </nav>
+
+  <!-- Canvas -->
+  <canvas id="canvas"></canvas>
+
+  <!-- Scroll container (Lenis target) -->
+  <div id="scroll-container">
+
+    <!-- Section 0: Hero -->
+    <section class="section s-hero">
+      <div class="hero-title">
+        <span class="hero-line">TOUCH</span>
+        <span class="hero-line indent">THE</span>
+        <span class="hero-line">SKY</span>
+      </div>
+      <div class="hero-meta">
+        <span class="mono-label">BURJ KHALIFA · 828M · DUBAI</span>
+      </div>
+      <div class="scroll-cue">
+        <span class="scroll-cue-text">SCROLL TO ASCEND</span>
+        <div class="scroll-cue-line"></div>
+      </div>
+    </section>
+
+    <!-- Section 1 -->
+    <section class="section s-left">
+      <div class="panel">
+        <div class="panel-index mono-label">01 —</div>
+        <div class="panel-stat">828<span class="stat-unit">M</span></div>
+        <h2 class="panel-title">The World's<br/>Tallest Tower</h2>
+        <p class="panel-body">163 floors. Built in 2010. A vertical city rising above the Arabian Gulf — the most ambitious structure humanity has ever assembled.</p>
+      </div>
+    </section>
+
+    <!-- Section 2 -->
+    <section class="section s-right">
+      <div class="panel">
+        <div class="panel-index mono-label">02 —</div>
+        <div class="panel-stat">148<span class="stat-unit">F</span></div>
+        <h2 class="panel-title">At The Top<br/>Observatory</h2>
+        <p class="panel-body">Two observation decks at Floors 124 and 148. Uninterrupted views across the desert, the Gulf, and the city that defied the impossible.</p>
+        <a href="#" class="cta-link">BOOK YOUR VISIT <span class="cta-arrow">→</span></a>
+      </div>
+    </section>
+
+    <!-- Section 3 -->
+    <section class="section s-left">
+      <div class="panel">
+        <div class="panel-index mono-label">03 —</div>
+        <div class="panel-stat">442<span class="stat-unit">M</span></div>
+        <h2 class="panel-title">At.mosphere<br/>Restaurant</h2>
+        <p class="panel-body">Floor 122. An award-winning culinary experience where the clouds are your backdrop and every detail is extraordinary.</p>
+        <a href="#" class="cta-link">RESERVE A TABLE <span class="cta-arrow">→</span></a>
+      </div>
+    </section>
+
+    <!-- Section 4: CTA -->
+    <section class="section s-final">
+      <div class="final-content">
+        <div class="mono-label teal">04 — PLAN YOUR VISIT</div>
+        <h2 class="final-title">Your Ascent<br/>Awaits</h2>
+        <div class="final-actions">
+          <a href="#" class="btn-pill gold">GET TICKETS</a>
+          <a href="#" class="btn-pill">LEARN MORE</a>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /scroll-container -->
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
